@@ -4,11 +4,13 @@
     {id: 3, title: "code out app"},
 ];
 
+import TodoListItem from './TodoListItem';
+
 function TodoList() {
     return (
     <ul>
             {todos.map((todo) => (
-                <li key={todo.id}>{todo.title}</li>
+            <   TodoListItem key={todo.id} todo={todo} />
             ))}
         </ul>
     );
