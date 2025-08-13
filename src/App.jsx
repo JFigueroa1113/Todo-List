@@ -6,19 +6,28 @@ import './App.css'
 
 
 function App() {
-  const [todos, setTodos] = useState([
+  const [todoList, setTodoList] = useState([
     { id: 1, title: 'Learn React' },
     { id: 2, title: 'Build a Todo App' }
   ]);
 
-  const [newTodo, setNewTodo] = useState("My first todo");
+ function addTodo(title) {
+    const newTodo = {
+      id: Date.now(),
+      title,
+    };
+
+    setTodoList([...todoList, newTodo]);
+    console.log("Updated list:", [...todoList, newTodo]);
+  }
+
 
   return (
       <main>
         <h1>My Todos</h1>
-        <TodoForm/>
-        <p>{newTodo}</p>
-        <TodoList todos={todos} />
+        <TodoForm onAddTodo={addTodo} />
+        
+        <TodoList todoList={todoList} />
       </main> 
   );
 }
