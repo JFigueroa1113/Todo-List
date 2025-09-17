@@ -1,53 +1,64 @@
-function TodosViewForm({
-  sortField,
-  setSortField,
+import { useState, useEffect } from 'react';
+
+export default function TodosViewForm({
   sortDirection,
   setSortDirection,
+  sortField,
+  setSortField,
   queryString,
   setQueryString,
 }) {
-  const preventRefresh = (e) => e.preventDefault();
+  
+  const [localQueryString, setLocalQueryString] = useState(queryString);
+
+  useEffect(() => {
+    const debounce = setTimeout(() => {
+      setQueryString(localQueryString);
+    }, 500);
+
+    return () => clearTimeout(debounce);
+  }, [localQueryString, setQueryString]);
+
+  const handleSortFieldChange = (e) => setSortField(e.target.value);
+  const handleSortDirectionChange = (e) => setSortDirection(e.target.value);
+  const handleQueryChange = (e) => setLocalQueryString(e.target.value);
+
+  const handleClear = () => {
+    setLocalQueryString('');
+    setQueryString('');
+  };
 
   return (
-    <form onSubmit={preventRefresh}>
-      <div style={{ marginBottom: "0.5rem" }}>
-        <label>
-          Search todos:
-          <input
-            type="text"
-            value={queryString}
-            onChange={(e) => setQueryString(e.target.value)}
-            style={{ marginLeft: "0.5rem" }}
-          />
-        </label>
-        <button
-          type="button"
-          onClick={() => setQueryString("")}
-          style={{ marginLeft: "0.5rem" }}
-        >
-          Clear
-        </button>
-      </div>
+    <form className="todos-view-form">
+      <label>
+        Sort Field:
+        <select value={sortField} onChange={handleSortFieldChange}>
+          <option value="createdTime">Created Time</option>
+          <option value="title">Title</option>
+        </select>
+      </label>
 
-      <div>
-        <label>
-          Sort by:
-          <select value={sortField} onChange={(e) => setSortField(e.target.value)}>
-            <option value="createdTime">Created Time</option>
-            <option value="title">Title</option>
-          </select>
-        </label>
+      <label>
+        Sort Direction:
+        <select value={sortDirection} onChange={handleSortDirectionChange}>
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </select>
+      </label>
 
-        <label style={{ marginLeft: "1rem" }}>
-          Direction:
-          <select value={sortDirection} onChange={(e) => setSortDirection(e.target.value)}>
-            <option value="desc">Descending</option>
-            <option value="asc">Ascending</option>
-          </select>
-        </label>
-      </div>
+      <label>
+        Filter:
+        <input
+          type="text"
+          value={localQueryString}
+          onChange={handleQueryChange}
+          placeholder="Search todos..."
+        />
+      </label>
+
+      <button type="button" onClick={handleClear}>
+        Clear
+      </button>
     </form>
   );
 }
-
-export default TodosViewForm;
