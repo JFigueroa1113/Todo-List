@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import TodoForm from './features/TodoForm';
 import TodoList from './features/TodoList/TodoList';
 import TodosViewForm from './features/TodosViewForm';
-import './App.css';
+import styles from './App.module.css';
 
 const token = `Bearer ${import.meta.env.VITE_PAT}`;
 const baseId = import.meta.env.VITE_BASE_ID;
@@ -158,8 +158,9 @@ function App() {
   };
 
   return (
-    <div>
+    <div className={styles.app}>
       <h1>My Todo App</h1>
+      {errorMessage && <div className={styles.error}>{errorMessage}</div>}
       <TodoForm onAddTodo={addTodo} isSaving={isSaving} />
       <TodoList
         todoList={todoList}

@@ -1,0 +1,22 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: pink; 
+  margin: 0;
+  padding: 0;
+}
+
+
+button,
+input[type="text"],
+input[type="number"] {
+  padding: 0.5rem 1rem;
+  border: 1px solid #888;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #333; 
+}
+
+button:hover {
+  background-color: #f5f5f5;
+}
