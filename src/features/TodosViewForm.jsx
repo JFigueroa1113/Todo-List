@@ -1,4 +1,14 @@
 import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+
+const StyledForm = styled.form`
+  padding: 0.5rem; /* small amount of padding for spacing */
+`;
+
+const StyledButton = styled.button`
+  margin-left: 0.5rem;
+  padding: 0.25rem 0.5rem;
+`;
 
 export default function TodosViewForm({
   sortDirection,
@@ -8,14 +18,12 @@ export default function TodosViewForm({
   queryString,
   setQueryString,
 }) {
-  
   const [localQueryString, setLocalQueryString] = useState(queryString);
 
   useEffect(() => {
     const debounce = setTimeout(() => {
       setQueryString(localQueryString);
     }, 500);
-
     return () => clearTimeout(debounce);
   }, [localQueryString, setQueryString]);
 
@@ -29,7 +37,7 @@ export default function TodosViewForm({
   };
 
   return (
-    <form className="todos-view-form">
+    <StyledForm>
       <label>
         Sort Field:
         <select value={sortField} onChange={handleSortFieldChange}>
@@ -56,9 +64,9 @@ export default function TodosViewForm({
         />
       </label>
 
-      <button type="button" onClick={handleClear}>
+      <StyledButton type="button" onClick={handleClear}>
         Clear
-      </button>
-    </form>
+      </StyledButton>
+    </StyledForm>
   );
 }

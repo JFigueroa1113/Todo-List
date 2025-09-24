@@ -1,9 +1,10 @@
 import TodoListItem from "./TodoListItem";
+import styles from "./TodoList.module.css"; 
 
 function TodoList({ todoList, onCompleteTodo, onUpdateTodo, isLoading, errorMessage }) {
   return (
     <>
-       {isLoading ? (
+      {isLoading ? (
         <p>Todo list loading...</p>
       ) : errorMessage ? (
         <div>
@@ -13,7 +14,7 @@ function TodoList({ todoList, onCompleteTodo, onUpdateTodo, isLoading, errorMess
       ) : todoList.length === 0 ? (
         <p>Add todo above to get started</p>
       ) : (
-        <ul>
+        <ul className={styles.list}> 
           {todoList.map((todo) => (
             <TodoListItem
               key={todo.id}
@@ -29,3 +30,4 @@ function TodoList({ todoList, onCompleteTodo, onUpdateTodo, isLoading, errorMess
 }
 
 export default TodoList;
+
